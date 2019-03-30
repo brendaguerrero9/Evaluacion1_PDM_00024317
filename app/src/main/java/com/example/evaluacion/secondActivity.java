@@ -3,6 +3,7 @@ package com.example.evaluacion;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ public class secondActivity extends AppCompatActivity {
 
     private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btnShare;
     private TextView usuario,vEmail,tot;
+    String Text;
     String cont1, cont2, cont3, cont4, cont5, cont6, cont7, cont8, cont9, tx1, tx2, tx3;
 
     @Override
@@ -35,9 +37,9 @@ public class secondActivity extends AppCompatActivity {
 
         Intent mIntent = getIntent();
         if (mIntent != null) {
-            usuario.setText(mIntent.getStringExtra("user"));
-            vEmail.setText(mIntent.getStringExtra("email"));
-            tot.setText(mIntent.getStringExtra("total"));
+            usuario.setText("Usuario: " + mIntent.getStringExtra("user"));
+            vEmail.setText("Correo electronico: "+mIntent.getStringExtra("email"));
+            tot.setText("Total de Productos: "+mIntent.getStringExtra("total"));
             btn1.setText(mIntent.getStringExtra("k1"));
             btn2.setText(mIntent.getStringExtra("k2"));
             btn3.setText(mIntent.getStringExtra("k3"));
@@ -48,6 +50,17 @@ public class secondActivity extends AppCompatActivity {
             btn8.setText(mIntent.getStringExtra("k8"));
             btn9.setText(mIntent.getStringExtra("k9"));
         }
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mmIntent = new Intent();
+                mmIntent.setAction(Intent.ACTION_SEND);
+                mmIntent.setType("text/plain");
+                Text = "Usuario: "+usuario+", Email:"+vEmail+", Total:"+tot;
+                mmIntent.putExtra("Mensaje", Text);
+                startActivity(mmIntent);
+            }
+        });
     }
 
 
